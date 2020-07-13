@@ -7,7 +7,7 @@ job("job1")
   
             triggers 
             {
-             pollSCM[('* * * * *')]
+              scm('* * * * *')
             }
 
             wrappers 
