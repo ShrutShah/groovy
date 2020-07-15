@@ -23,9 +23,7 @@ job("job1")
                 tag("latest")
                 dockerHostURI('tcp://0.0.0.0:1234')
                 registryCredentials('docker-hub')
-                createFingerprints(false)
-                skipDecorate(false)
-                skipTagAsLatest(true)
+              
                }
             }
   
@@ -37,7 +35,11 @@ job("job2") {
                 upstream('job1', 'SUCCESS')
               }
   
-                com = """
+               
+  
+                steps 
+                {
+                   shell( """
               export length1=\$(ls -l /var/lib/jenkins/workspace/job1 | grep html | wc -l)
               if [ \$length1 -gt 0 ]
               then
@@ -52,11 +54,7 @@ job("job2") {
                   sudo kubectl expose deployment pod1 --port 80 --type NodePort
                 fi
               fi
-              """
-  
-                steps 
-                {
-                   shell(com)
+              """)
                 }
 
               }
